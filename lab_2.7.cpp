@@ -28,6 +28,11 @@ int main(){
             }
             case 2: {
                 input = false;
+                cout << "Enter values one by one. After you entered one value press enter." << endl;
+                for (int i = 0; i < MAX; ++i){
+                    cout << i << " : ";
+                    cin >> *(arr + i);
+                }
                 break;
             }
             default: {
@@ -35,6 +40,7 @@ int main(){
             }
         }
     }
+    //Filing with random numbers
     if (id == 1){
         random_device rd;
         mt19937 rng(rd());
