@@ -53,6 +53,11 @@ int main(){
             *(arr + i) = temp;
         }
     }
+    //Output of array, just to be sure that everything is working
+    for (int i = 0; i < MAX; ++i) {
+        cout << *(arr + i) << " ";
+    }
+    cout << endl;
     //finding max value
     double  cur;
     double lmax;
@@ -66,8 +71,24 @@ int main(){
             lmax = cur;
         }
     }
-    cout << "The maximum modulo element of the array:" << fixed << setprecision(5) << lmax << endl;
-
+    cout << "The maximum modulo element of the array: " << fixed << setprecision(5) << lmax << endl;
+    //The second question: sum of elements, which are between two elements greater then zero
+    double sum = 0;
+    bool plus_1 = true;
+    for (int i = 0; i < MAX; ++i) {
+        cur = *(arr + i);
+        if (cur > 0 && plus_1){
+            plus_1 = false;
+            continue;
+        }
+        if (cur > 0 && !plus_1){
+            break;
+        }
+        if(!plus_1) {
+            sum = (double) sum + cur;
+        }
+    }
+    cout << "Sum of elements, which are between two elements that are greater then zero " << fixed << setprecision(5) << sum << endl;
 
 
 }
