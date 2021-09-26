@@ -1,6 +1,7 @@
 #include <iostream>
 #include <random>
 #include <iomanip>
+#include <cmath>
 
 using namespace std;
 
@@ -28,7 +29,7 @@ int main(){
             }
             case 2: {
                 input = false;
-                cout << "Enter values one by one. After you entered one value press enter." << endl;
+                cout << "Enter values one by one. After you entered one value press enter. Use dots instead of commas" << endl;
                 for (int i = 0; i < MAX; ++i){
                     cout << i << " : ";
                     cin >> *(arr + i);
@@ -36,7 +37,7 @@ int main(){
                 break;
             }
             default: {
-                cout << "Something went  wrong/: Check out accuracy of input data." << endl;
+                cout << "Something went  wrong): Check out accuracy of input data." << endl;
             }
         }
     }
@@ -52,6 +53,20 @@ int main(){
             *(arr + i) = temp;
         }
     }
+    //finding max value
+    double  cur;
+    double lmax;
+    for (int i = 0; i < MAX; ++i) {
+        cur = *(arr + i);
+        if(i == 0){
+            lmax = cur;
+            continue;
+        }
+        if (fabs(lmax) < fabs(cur)){
+            lmax = cur;
+        }
+    }
+    cout << "The maximum modulo element of the array:" << fixed << setprecision(5) << lmax << endl;
 
 
 
