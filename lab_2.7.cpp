@@ -5,7 +5,7 @@
 
 using namespace std;
 
-int main(){
+int main() {
     //Instead of taking a lot of memory space, which might not even be used,
     //I allow user to define max and real amount of elements in one.
     cout << "Enter amount of doubles in array" << endl;
@@ -17,7 +17,7 @@ int main(){
 
     bool input = true;
     int id, lim1, lim2;
-    while(input){
+    while (input) {
         cout << "For random filling enter 1, for custom 2" << endl;
         cin >> id;
         switch (id) {
@@ -29,8 +29,9 @@ int main(){
             }
             case 2: {
                 input = false;
-                cout << "Enter values one by one. After you entered one value press enter. Use dots instead of commas" << endl;
-                for (int i = 0; i < MAX; ++i){
+                cout << "Enter values one by one. After you entered one value press enter. Use dots instead of commas"
+                     << endl;
+                for (int i = 0; i < MAX; ++i) {
                     cout << i << " : ";
                     cin >> *(arr + i);
                 }
@@ -42,11 +43,11 @@ int main(){
         }
     }
     //Filing with random numbers
-    if (id == 1){
+    if (id == 1) {
         random_device rd;
         mt19937 rng(rd());
         uniform_int_distribution<> dist6(lim1 * 7, lim2 * 7);
-        for (int i = 0; i < MAX; ++i){
+        for (int i = 0; i < MAX; ++i) {
             double temp;
             temp = (double) dist6(rng);
             temp = temp / 7;
@@ -59,15 +60,15 @@ int main(){
     }
     cout << endl;
     //finding max value
-    double  cur;
+    double cur;
     double lmax;
     for (int i = 0; i < MAX; ++i) {
         cur = *(arr + i);
-        if(i == 0){
+        if (i == 0) {
             lmax = cur;
             continue;
         }
-        if (fabs(lmax) < fabs(cur)){
+        if (fabs(lmax) < fabs(cur)) {
             lmax = cur;
         }
     }
@@ -77,18 +78,72 @@ int main(){
     bool plus_1 = true;
     for (int i = 0; i < MAX; ++i) {
         cur = *(arr + i);
-        if (cur > 0 && plus_1){
+        if (cur > 0 && plus_1) {
             plus_1 = false;
             continue;
         }
-        if (cur > 0 && !plus_1){
+        if (cur > 0 && !plus_1) {
             break;
         }
-        if(!plus_1) {
+        if (!plus_1) {
             sum = (double) sum + cur;
         }
     }
-    cout << "Sum of elements, which are between two elements that are greater then zero " << fixed << setprecision(5) << sum << endl;
+    cout << "Sum of elements, which are between two elements that are greater then zero " << fixed << setprecision(5)
+         << sum << endl;
+    //Arrange the elements in descending order of their frequency of occurrence
 
+    for (int i = 0; i < MAX; ++i) {
+        for (int j = 1; j < MAX; ++j) {
+            if (*(arr + j - 1) < *(arr + j)) {
+                swap(*(arr + j - 1), *(arr + j));
+            }
+        }
+    }
 
+    int arr_l = MAX,am = 0, am_max = 0, ii = 0 ,nulls = 0;
+    for (int i = 0; i < MAX; ++i) {
+        cout << *(arr + i) << " ";
+        if (*(arr + i) == 0){
+            ++nulls;
+        }
+    }
+    cout << endl;
+    for (int i = 0; i < MAX; ++i) {
+        bool first = true;
+        for(int j = 0; j < arr_l; ++j){
+            if (*(arr + j) == 0){
+                continue;
+            }
+            if (first){
+                ++am;
+                first = false;
+                continue;
+            }
+            if (*(arr + j) != *(arr + j - 1)) {
+                if (am > am_max) {
+                am_max = am;
+                ii = j - 1;
+                }
+                am = 1;
+                continue;
+            } else {
+                ++am;
+            }
+            if (arr_l - 1 == j){
+                am_max = am;
+                ii = j - 1;
+            }
+        }
+        if (nulls > ii) {
+            cout << 0 << " ";
+        } else {
+            cout << *(arr + ii) << " ";
+        }
+        for (int t = 0; t > ii - am_max; --t) {
+            *(arr + t) = 0;
+        }
+        ii = 0;
+        am_max = 0;
+    }
 }
