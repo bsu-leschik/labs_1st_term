@@ -3,6 +3,12 @@
 #include <iomanip>
 #include <cmath>
 
+void sort(double *arr, const int *size);
+void max_freq(double *arr, const int *size);
+int exists(double element, double* arr, const int* size);
+
+
+
 using namespace std;
 
 int main() {
@@ -93,57 +99,87 @@ int main() {
          << sum << endl;
     //Arrange the elements in descending order of their frequency of occurrence
 
-    for (int i = 0; i < MAX; ++i) {
-        for (int j = 1; j < MAX; ++j) {
+    max_freq(arr, &MAX);
+
+    for (int i = 0; i < MAX; ++ i){
+        cout << *(arr + i);
+    }
+}
+
+void max_freq(double* arr, const int* size) {
+    sort(arr, size);
+
+    int nulls = 0, amount = 0, max_amount = 0, i_max = 0;
+    for (int i = 0; i < *size; ++i) {
+        if (arr[i] == 0){
+            ++nulls;
+        }
+    }
+    bool first = true;
+    bool first_out = true;
+    for (int i = 0; i < *size; ++i) {
+        if (first && arr[i] != 0){
+            first = false;
+            amount++;
+            continue;
+        }
+        if (arr[i] == 0){
+            if (!first){
+                if (amount > max_amount){
+                    max_amount = amount;
+                    i_max = i - 1;
+                    amount = 0;
+                } else {
+                    amount = 0;
+                }
+            }
+            continue;
+        }
+        while(arr[i] == arr[i - 1])  {
+            amount ++;
+            i ++;
+        }
+        if (arr[i] != arr[i - 1] || arr[i] != 0){
+            if (amount > max_amount){
+                max_amount = amount;
+                i_max = i - 1;
+                amount = 0;
+            } else {
+                amount = 0;
+            }
+        }
+        double temp = arr[i_max];
+        if (nulls > max_amount && first_out) {
+            cout << 0 << " ";
+            first_out = false;
+        } else {
+            int temp_i = exists(temp, arr, size);
+            cout << temp << " ";
+            while (temp_i != -1) {
+                arr[temp_i] = 0;
+                temp_i = exists(temp, arr, size);
+            }
+        }
+        max_amount = 0;
+        i_max = 0;
+    }
+}
+
+void sort(double *arr, const int* size) {
+    for (int i = 0; i < *size; ++i) {
+        for (int j = 1; j < *size; ++j) {
             if (*(arr + j - 1) < *(arr + j)) {
                 swap(*(arr + j - 1), *(arr + j));
             }
         }
     }
+}
 
-    int arr_l = MAX,am = 0, am_max = 0, ii = 0 ,nulls = 0;
-    for (int i = 0; i < MAX; ++i) {
-        cout << *(arr + i) << " ";
-        if (*(arr + i) == 0){
-            ++nulls;
+int exists(double element, double* arr, const int* size){
+    for (int i = 0; i < *size; ++i) {
+        if (element == arr[i]){
+            return i;
         }
     }
-    cout << endl;
-    for (int i = 0; i < MAX; ++i) {
-        bool first = true;
-        for(int j = 0; j < arr_l; ++j){
-            if (*(arr + j) == 0){
-                continue;
-            }
-            if (first){
-                ++am;
-                first = false;
-                continue;
-            }
-            if (*(arr + j) != *(arr + j - 1)) {
-                if (am > am_max) {
-                am_max = am;
-                ii = j - 1;
-                }
-                am = 1;
-                continue;
-            } else {
-                ++am;
-            }
-            if (arr_l - 1 == j){
-                am_max = am;
-                ii = j - 1;
-            }
-        }
-        if (nulls > ii) {
-            cout << 0 << " ";
-        } else {
-            cout << *(arr + ii) << " ";
-        }
-        for (int t = 0; t > ii - am_max; --t) {
-            *(arr + t) = 0;
-        }
-        ii = 0;
-        am_max = 0;
-    }
+    return -1;
 }
