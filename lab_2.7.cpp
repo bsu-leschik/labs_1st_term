@@ -99,15 +99,26 @@ int main() {
          << sum << endl;
     //Arrange the elements in descending order of their frequency of occurrence
 
-    max_freq(arr, &MAX);
-
-    for (int i = 0; i < MAX; ++ i){
-        cout << *(arr + i);
+    int unique_count = 0;
+    sort(arr, &MAX);
+    for (int i = 0; i < MAX; ++i) {
+        if (i == 0){
+            unique_count++;
+            continue;
+        }
+        if (arr[i] != arr[i-1]){
+            unique_count++;
+        }
+    }
+    cout << unique_count << endl;
+    for (int i = 0; i < unique_count; ++i) {
+        max_freq(arr, &MAX);
     }
 }
 
+static int zeros;
+static bool zero_first = true;
 void max_freq(double* arr, const int* size) {
-    sort(arr, size);
 
     int nulls = 0, amount = 0, max_amount = 0, i_max = 0;
     for (int i = 0; i < *size; ++i) {
@@ -115,8 +126,11 @@ void max_freq(double* arr, const int* size) {
             ++nulls;
         }
     }
+    if(zero_first){
+        zeros = nulls;
+        zero_first = false;
+    }
     bool first = true;
-    bool first_out = true;
     for (int i = 0; i < *size; ++i) {
         if (first && arr[i] != 0){
             first = false;
@@ -148,20 +162,17 @@ void max_freq(double* arr, const int* size) {
                 amount = 0;
             }
         }
-        double temp = arr[i_max];
-        if (nulls > max_amount && first_out) {
-            cout << 0 << " ";
-            first_out = false;
-        } else {
-            int temp_i = exists(temp, arr, size);
-            cout << temp << " ";
-            while (temp_i != -1) {
-                arr[temp_i] = 0;
-                temp_i = exists(temp, arr, size);
-            }
+    }
+    double temp = arr[i_max];
+    if (zeros > max_amount) {
+        cout << 0 << " ";
+    } else {
+        int temp_i = exists(temp, arr, size);
+        cout << temp << " ";
+        while (temp_i != -1) {
+            arr[temp_i] = 0;
+            temp_i = exists(temp, arr, size);
         }
-        max_amount = 0;
-        i_max = 0;
     }
 }
 
