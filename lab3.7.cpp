@@ -74,6 +74,38 @@ vector<vector<double>> maxes(vector<vector<double>>& matrix){
     return matrix;
 }
 
+int negativeString(vector<vector<double>> matrix){
+
+    bool negative = true;
+
+    for (int i = 0; i < matrix.size(); ++i) {
+        for (int j = 0; j < matrix.size(); ++j) {
+            if (matrix[i][j] < 0 && j == 0){
+                negative = true;
+                continue;
+            }
+            if (matrix[i][j] > 0 && negative){
+                negative = false;
+            }
+        }
+        if (negative) {
+            return i;
+        }
+        negative = false;
+    }
+    return -1;
+}
+
+bool check(const vector<vector<double>>& matrix){
+    for (int i = 0; i < matrix.size(); ++i) {
+        for (int j = 0; j < matrix.size(); ++j) {
+            if (matrix[i][j] != matrix[j][i]){
+                return false;
+            }
+        }
+    }
+    return true;
+}
 
 int main(){
 
@@ -81,9 +113,24 @@ int main(){
     cout << "Enter amount of elements in string" << endl;
     cin >> amount;
 
+    bool symmetry = true;
+
     vector<vector<double>> matrix(amount);
 
-    matrix = fill(amount);
+    while (symmetry){
+        cout << "Enter matrix" << endl;
+        matrix = fill(amount);
+        symmetry = !check(matrix);
+        if (symmetry){
+            cout << "Input is not appropriate for the rule a[i, j] = a[j, i]" << endl;
+        }
+    }
+
+
+
+
+
+
     cout << "Original matrix" << endl;
     mout(matrix);
 
@@ -91,5 +138,10 @@ int main(){
     cout << "Matrix with changed diagonal" << endl;
     mout(matrix);
 
-    //cout << "First string, which has only negative elements: " << negativeString(matrix) << endl;
+    int string_n = negativeString(matrix);
+    if (string_n != -1) {
+        cout << "First string, which has only negative elements: " << string_n << endl;
+    } else  {
+        cout << "There is no string which has only negative elements" << endl;
+    }
 }
