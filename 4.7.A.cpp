@@ -12,7 +12,7 @@ char * strchr(char* string, int symbol){
         }
         ++i;
     }while (string[i - 1] != '\0');
-    return nullptr;
+    return string;
 }
 
 
@@ -23,10 +23,12 @@ int main(){
     cin >> amount;
     char* string = new char[amount + 1];
     cout << "Enter the string: ";
-    cin >> string;
+    cin.getline(string,  amount + 1);
+    cin.getline(string,  amount + 1);
     cout << "Enter the symbol, which you want to find: ";
     cin >> symbol;
     cout << *strchr(string, symbol);
+    delete[] string;
 
 }
 
