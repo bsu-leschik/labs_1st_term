@@ -92,4 +92,5 @@ int main(){
     cout << "Enter the string:" << endl;
     cin.getline(string, 301);
     cout << "Amount of true datas: " << datas(string);
+    delete[] string;
 }
