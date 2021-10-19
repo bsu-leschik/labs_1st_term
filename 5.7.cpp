@@ -6,7 +6,7 @@
 using namespace std;
 
 char *takePath() {
-    char *path = new char[100];
+    string path;
     cout << "Enter the address to the file" << endl;
     cin >> path;
     ifstream reader(path);
@@ -14,7 +14,11 @@ char *takePath() {
         cout << "Oops, something went wrong, check the accuracy of input data" << endl;
         return takePath();
     }
-    return path;
+    char *pathCh = new char[path.size()];
+    for (int i = 0; i < path.size(); ++i) {
+        pathCh[i] = path[i];
+    }
+    return pathCh;
 }
 
 int lineAmount(char *path) {
@@ -78,7 +82,7 @@ char* pathToPackage(const char* path){
     return pathPackage;
 }
 
-void output(const vector<vector<int>>& IndexAmount, vector<string> text,char* pathPackage){
+void output(const vector<vector<int>>& IndexAmount, vector<string> text,const string& pathPackage){
     string file = "output.txt";
     string path = pathPackage + file;
     ofstream fout(path);
@@ -96,7 +100,7 @@ int main() {
     path = takePath();
     vector<string> text = read(path);
     vector<vector<int>> IndexAmount = equalStrings(text);
-    char *pathPackage = pathToPackage(path);
+    string pathPackage = pathToPackage(path);
     output(IndexAmount, text, pathPackage);
     return 0;
 }
