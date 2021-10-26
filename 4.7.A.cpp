@@ -1,4 +1,5 @@
 #include <iostream>
+#include "4.7.A.h"
 
 using namespace std;
 
@@ -16,7 +17,7 @@ char * strchr(char* string, int symbol){
 }
 
 
-int main(){
+int mainA(){
     int amount;
     char symbol;
     cout << "Enter amount of elements in the string: ";

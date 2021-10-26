@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include "4.7.B.h"
 
 using namespace std;
 
@@ -87,7 +88,7 @@ int datas(char* string){
     return amount;
 }
 
-int main(){
+int mainB(){
     char* string = new char[301];
     cout << "Enter the string:" << endl;
     cin.getline(string, 301);
