@@ -3,4 +3,4 @@ project(labs_1st_term)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(labs_1st_term main.cpp)
+add_executable(labs_1st_term 6.cpp CorrectFraction.cpp CorrectFraction.h)
