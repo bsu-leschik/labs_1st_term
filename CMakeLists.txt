@@ -15,7 +15,7 @@ project(third_lab)
 add_executable(third_lab lab3.7.cpp)
 
 project(fourth_lab)
-add_executable(fourth_lab 4.7.A.cpp 4.7.B.cpp)
+add_executable(fourth_lab 4.7.A.cpp 4.7.B.cpp 4.7.A.h 4.7.B.h tests4.7.h)
 
 project(fifth_lab)
 add_executable(fifth_lab 5.7.cpp)
