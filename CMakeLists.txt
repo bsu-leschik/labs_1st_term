@@ -22,3 +22,14 @@ add_executable(fifth_lab fifth_lab_var7/5.7.cpp)
 
 project(sixth_lab)
 add_executable(sixth_lab sixth_lab/6.cpp sixth_lab/CorrectFraction.cpp sixth_lab/CorrectFraction.h)
+
+project(Google_tests_six_lab)
+
+# 'lib' is the folder with Google Test sources
+add_subdirectory(googletest)
+include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+
+# 'Google_Tests_run' is the target name
+# 'test1.cpp tests2.cpp' are source files with tests
+add_executable(Google_Tests_six_lab_run sixth_lab/tests.cpp sixth_lab/CorrectFraction.cpp sixth_lab/CorrectFraction.h sixth_lab/tests.h)
+target_link_libraries(Google_Tests_six_lab_run gtest gtest_main)

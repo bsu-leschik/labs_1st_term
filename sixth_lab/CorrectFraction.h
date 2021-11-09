@@ -14,9 +14,9 @@ public:
     CorrectFraction cut();
     int getNumerator();
     int getDenominator();
-    CorrectFraction sum(CorrectFraction first, CorrectFraction second);
-    CorrectFraction multiply(CorrectFraction first, CorrectFraction second);
-    CorrectFraction divide(CorrectFraction first, CorrectFraction second);
+    static CorrectFraction sum(CorrectFraction first, CorrectFraction second);
+    static CorrectFraction multiply(CorrectFraction first, CorrectFraction second);
+    static CorrectFraction divide(CorrectFraction first, CorrectFraction second);
     void output();
 private:
     int num;
