@@ -34,4 +34,4 @@ add_executable(Google_Tests_7Lab_run 7Lab/student.h 7Lab/student.cpp 7Lab/main.c
 target_link_libraries(Google_Tests_six_lab_run gtest gtest_main)
 
 project(7Lab)
-add_executable(7Lab 7Lab/student.cpp 7Lab/student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h)
+add_executable(7Lab 7Lab/student.cpp 7Lab/student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h 7Lab/main.cpp)
