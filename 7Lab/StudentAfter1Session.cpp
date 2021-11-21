@@ -32,7 +32,7 @@ ostream &operator<<(ostream &out, const StudentAfter1Session &classEx) {
     out << "Name: " << classEx.name << endl;
     out << "Curs: " << classEx.curs << endl;
     out << "Group: " << classEx.group << endl;
-    out << "Marks: " << classEx.marks << endl;
+    out << "Marks after 1st session:  " << classEx.marks << endl;
     out << "UUID: " << classEx.UUID << endl;
     return out;
 }
