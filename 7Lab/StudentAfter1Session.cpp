@@ -1,16 +1,12 @@
-//
-// Created by skalem on 19.11.21.
-//
-
 #include "StudentAfter1Session.h"
 
-StudentAfter1Session::StudentAfter1Session(int studentNum, char *name, int curs1, int group, const int *marks) : student(studentNum, name, curs1, group){
+StudentAfter1Session::StudentAfter1Session(int studentNum, char *name, int curs1, int group, const int *marks) : Student(studentNum, name, curs1, group){
     for (int i = 0; i < 4; ++i) {
         this->marks[i] = marks[i];
     }
 }
 
-StudentAfter1Session::StudentAfter1Session(StudentAfter1Session *exClass) : student(exClass->studentNum, exClass->name,
+StudentAfter1Session::StudentAfter1Session(StudentAfter1Session *exClass) : Student(exClass->studentNum, exClass->name,
                                                                                     exClass->curs, exClass->group) {
     for (int i = 0; i < 4; ++i) {
         this->marks[i] = exClass->marks[i];
@@ -28,12 +24,9 @@ int* StudentAfter1Session::getMarks() {
 }
 
 ostream &operator<<(ostream &out, const StudentAfter1Session &classEx) {
-    out << "Student number: " << classEx.studentNum << endl;
-    out << "Name: " << classEx.name << endl;
-    out << "Curs: " << classEx.curs << endl;
-    out << "Group: " << classEx.group << endl;
+    Student student(classEx);
+    cout << student;
     out << "Marks after 1st session:  " << classEx.marks << endl;
-    out << "UUID: " << classEx.UUID << endl;
     return out;
 }
 

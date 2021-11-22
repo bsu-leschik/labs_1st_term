@@ -39,12 +39,8 @@ int StudentAfter2Session::getAverageMark() {
 }
 
 ostream &operator<<(ostream &out, const StudentAfter2Session &classEx) {
-    out << "Student number: " << classEx.studentNum << endl;
-    out << "Name: " << classEx.name << endl;
-    out << "Curs: " << classEx.curs << endl;
-    out << "Group: " << classEx.group << endl;
-    out << "Marks after 1st session: " << classEx.marks << endl;
+    StudentAfter1Session student(classEx);
+    cout << student;
     out << "Marks after 2nd session: " << classEx.marks2Session << endl;
-    out << "UUID: " << classEx.UUID << endl;
     return out;
 }

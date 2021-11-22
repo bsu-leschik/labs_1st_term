@@ -1,9 +1,9 @@
 #ifndef INC_7LAB_STUDENTAFTER1SESSION_H
 #define INC_7LAB_STUDENTAFTER1SESSION_H
 
-#include "student.h"
+#include "Student.h"
 
-class StudentAfter1Session : public student {
+class StudentAfter1Session : public Student {
 protected:
     int marks[4];
 public:
@@ -17,7 +17,7 @@ public:
 
     friend ostream &operator<<(ostream &out, const StudentAfter1Session &classEx);
 
-    virtual int getAverageMark();
+    int getAverageMark() override;
 
 };
 

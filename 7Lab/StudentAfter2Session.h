@@ -7,11 +7,11 @@
 
 #include "StudentAfter1Session.h"
 
-class StudentAfter2Session : StudentAfter1Session {
+class StudentAfter2Session : public StudentAfter1Session {
 
 protected:
     int marks2Session[5];
-
+public:
     StudentAfter2Session(int studentNum, char *name, int curs1, int group, const int marks[4],
                          const int marks2Session[5]);
 

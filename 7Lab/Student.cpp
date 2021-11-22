@@ -1,6 +1,6 @@
-#include "student.h"
+#include "Student.h"
 
-string student::toHex(int dec) {
+string Student::toHex(int dec) {
     assert(dec < 16);
     string hex;
     if (dec > 9){
@@ -11,7 +11,7 @@ string student::toHex(int dec) {
     return hex;
 }
 
-string student::createUUID() {
+string Student::createUUID() {
     random_device rdGen;
     mt19937 gen(rdGen());
     uniform_int_distribution<> dis0_15(0, 15);
@@ -44,7 +44,7 @@ string student::createUUID() {
 
 
 
-student::student(int studentNum, char *name, int curs, int group) {
+Student::Student(int studentNum, char *name, int curs, int group) {
     UUID = createUUID();
     this->studentNum = studentNum;
     this->name = name;
@@ -52,7 +52,7 @@ student::student(int studentNum, char *name, int curs, int group) {
     this->group = group;
 }
 
-student::student(student *studentClass) {
+Student::Student(Student *studentClass) {
     this->UUID = studentClass->UUID;
     this->studentNum = studentClass->studentNum;
     this->name = studentClass->name;
@@ -60,43 +60,47 @@ student::student(student *studentClass) {
     this->group = studentClass->group;
 }
 
-void student::setName(char *name) {
+void Student::setName(char *name) {
     this->name = name;
 }
 
-void student::setCurs(int curs) {
+void Student::setCurs(int curs) {
     this->curs = curs;
 }
 
-void student::setGroup(int group) {
+void Student::setGroup(int group) {
     this->group = group;
 }
 
-string student::getUUID() {
+string Student::getUUID() {
     return UUID;
 }
 
-int student::getStudentNum() {
+int Student::getStudentNum() {
     return studentNum;
 }
 
-char *student::getName() {
+char *Student::getName() {
     return name;
 }
 
-int student::getCurs() {
+int Student::getCurs() {
     return curs;
 }
 
-int student::getGroup() {
+int Student::getGroup() {
     return group;
 }
 
-ostream &operator<<(ostream &out, const student& studentClass) {
+ostream &operator<<(ostream &out, const Student& studentClass) {
+    out << "UUID: " << studentClass.UUID << endl;
     out << "Student number: " << studentClass.studentNum << endl;
     out << "Name: " << studentClass.name << endl;
     out << "Curs: " << studentClass.curs << endl;
     out << "Group: " << studentClass.group << endl;
-    out << "UUID: " << studentClass.UUID << endl;
     return out;
+}
+
+int Student::getAverageMark() {
+    return 0;
 }

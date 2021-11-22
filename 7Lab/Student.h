@@ -8,7 +8,7 @@
 
 using namespace std;
 
-class student {
+class Student {
 
 protected:
 
@@ -23,9 +23,9 @@ protected:
 
 public:
 
-    student(int studentNum, char *name, int curs, int group);
+    Student(int studentNum, char *name, int curs, int group);
 
-    student(student *studentClass);
+    Student(Student *studentClass);
 
     void setName(char *name);
 
@@ -43,8 +43,9 @@ public:
 
     int getGroup();
 
-    friend ostream &operator<<(ostream &out, const student& studentClass);
+    friend ostream &operator<<(ostream &out, const Student& studentClass);
 
+    virtual int getAverageMark();
 
 };
 
