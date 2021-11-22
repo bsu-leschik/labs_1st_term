@@ -101,6 +101,6 @@ ostream &operator<<(ostream &out, const Student& studentClass) {
     return out;
 }
 
-int Student::getAverageMark() {
+double Student::getAverageMark() {
     return 0;
 }

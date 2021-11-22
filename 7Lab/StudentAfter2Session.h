@@ -21,7 +21,7 @@ public:
 
     int *get2SessionMarks();
 
-    int getAverageMark() override;
+    double getAverageMark() override;
 
     friend ostream &operator<<(ostream &out, const StudentAfter2Session &classEx);
 

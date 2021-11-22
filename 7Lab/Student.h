@@ -10,7 +10,7 @@ using namespace std;
 
 class Student {
 
-protected:
+private:
 
     string UUID;
     int studentNum;
@@ -45,7 +45,7 @@ public:
 
     friend ostream &operator<<(ostream &out, const Student& studentClass);
 
-    virtual int getAverageMark();
+    virtual double getAverageMark();
 
 };
 

@@ -17,7 +17,7 @@ public:
 
     friend ostream &operator<<(ostream &out, const StudentAfter1Session &classEx);
 
-    int getAverageMark() override;
+    double getAverageMark() override;
 
 };
 

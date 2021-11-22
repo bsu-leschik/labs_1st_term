@@ -27,15 +27,14 @@ int *StudentAfter2Session::get2SessionMarks() {
     return marks2Session;
 }
 
-int StudentAfter2Session::getAverageMark() {
-    int sum = 0;
+double StudentAfter2Session::getAverageMark() {
+    double sum = 0;
     for (int mark : this->marks2Session) {
         sum += mark;
     }
-    for (int mark : this->marks) {
-        sum += mark;
-    }
-    return sum / 9;
+    StudentAfter1Session student(this);
+    sum = (double) (sum / 5 + student.getAverageMark()) / 2;
+    return sum;
 }
 
 ostream &operator<<(ostream &out, const StudentAfter2Session &classEx) {

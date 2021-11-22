@@ -6,8 +6,7 @@ StudentAfter1Session::StudentAfter1Session(int studentNum, char *name, int curs1
     }
 }
 
-StudentAfter1Session::StudentAfter1Session(StudentAfter1Session *exClass) : Student(exClass->studentNum, exClass->name,
-                                                                                    exClass->curs, exClass->group) {
+StudentAfter1Session::StudentAfter1Session(StudentAfter1Session *exClass) : Student(exClass) {
     for (int i = 0; i < 4; ++i) {
         this->marks[i] = exClass->marks[i];
     }
@@ -30,8 +29,8 @@ ostream &operator<<(ostream &out, const StudentAfter1Session &classEx) {
     return out;
 }
 
-int StudentAfter1Session::getAverageMark() {
-    int sum = 0;
+double StudentAfter1Session::getAverageMark() {
+    double sum = 0;
     for (int mark : this->marks) {
         sum += mark;
     }
