@@ -29,9 +29,9 @@ add_subdirectory(googletest EXCLUDE_FROM_ALL)
 include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 add_executable(Google_Tests_six_lab_run sixth_lab/tests.cpp sixth_lab/CorrectFraction.cpp sixth_lab/CorrectFraction.h sixth_lab/tests.h)
-add_executable(Google_Tests_7Lab_run 7Lab/student.h 7Lab/student.cpp 7Lab/main.cpp 7Lab/tests.cpp)
+add_executable(Google_Tests_7Lab_run 7Lab/Student.h 7Lab/Student.cpp 7Lab/main.cpp 7Lab/tests.cpp)
 
 target_link_libraries(Google_Tests_six_lab_run gtest gtest_main)
 
 project(7Lab)
-add_executable(7Lab 7Lab/student.cpp 7Lab/student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h 7Lab/main.cpp)
+add_executable(7Lab 7Lab/Student.cpp 7Lab/Student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h 7Lab/main.cpp 7Lab/main.h 7Lab/functions.cpp 7Lab/functions.h)
