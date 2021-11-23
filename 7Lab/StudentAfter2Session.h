@@ -12,7 +12,7 @@ class StudentAfter2Session : public StudentAfter1Session {
 protected:
     int marks2Session[5];
 public:
-    StudentAfter2Session(int studentNum, char *name, int curs1, int group, const int marks[4],
+    StudentAfter2Session(int studentNum, string &name, int curs1, int group, const int marks[4],
                          const int marks2Session[5]);
 
     StudentAfter2Session(StudentAfter2Session *exClass);

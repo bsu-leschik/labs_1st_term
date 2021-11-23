@@ -4,14 +4,15 @@
 
 #include "StudentAfter2Session.h"
 
-StudentAfter2Session::StudentAfter2Session(int studentNum, char *name, int curs1, int group, const int *marks,
-                                           const int *marks2Session) : StudentAfter1Session(studentNum, name, curs1, group, marks){
+StudentAfter2Session::StudentAfter2Session(int studentNum, string &name, int curs1, int group, const int *marks,
+                                           const int *marks2Session) : StudentAfter1Session(studentNum, name, curs1,
+                                                                                            group, marks) {
     for (int i = 0; i < 5; ++i) {
         this->marks2Session[i] = marks2Session[i];
     }
 }
 
-StudentAfter2Session::StudentAfter2Session(StudentAfter2Session *exClass) : StudentAfter1Session(exClass){
+StudentAfter2Session::StudentAfter2Session(StudentAfter2Session *exClass) : StudentAfter1Session(exClass) {
     for (int i = 0; i < 5; ++i) {
         this->marks2Session[i] = marks2Session[i];
     }
@@ -29,7 +30,7 @@ int *StudentAfter2Session::get2SessionMarks() {
 
 double StudentAfter2Session::getAverageMark() {
     double sum = 0;
-    for (int mark : this->marks2Session) {
+    for (int mark: this->marks2Session) {
         sum += mark;
     }
     StudentAfter1Session student(this);
@@ -40,6 +41,7 @@ double StudentAfter2Session::getAverageMark() {
 ostream &operator<<(ostream &out, const StudentAfter2Session &classEx) {
     StudentAfter1Session student(classEx);
     cout << student;
-    out << "Marks after 2nd session: " << classEx.marks2Session << endl;
+    out << "Marks after 2nd session: " << classEx.marks2Session[0] << " " << classEx.marks2Session[1] << " "
+        << classEx.marks2Session[2] << " " << classEx.marks2Session[3] << " " << classEx.marks2Session[4] << endl;
     return out;
 }

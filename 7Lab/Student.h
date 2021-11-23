@@ -23,7 +23,7 @@ private:
 
 public:
 
-    Student(int studentNum, char *name, int curs, int group);
+    Student(int studentNum, string &name, int curs, int group);
 
     Student(Student *studentClass);
 
@@ -47,6 +47,7 @@ public:
 
     virtual double getAverageMark();
 
+    virtual ~Student();
 };
 
 

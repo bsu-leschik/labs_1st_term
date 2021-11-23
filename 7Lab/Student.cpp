@@ -44,10 +44,13 @@ string Student::createUUID() {
 
 
 
-Student::Student(int studentNum, char *name, int curs, int group) {
+Student::Student(int studentNum, string &name, int curs, int group) {
+    this->name = new char[name.size()];
     UUID = createUUID();
     this->studentNum = studentNum;
-    this->name = name;
+    for (int i = 0; i < name.size(); ++i) {
+        this->name[i] = name.at(i);
+    }
     this->curs = curs;
     this->group = group;
 }
@@ -104,3 +107,9 @@ ostream &operator<<(ostream &out, const Student& studentClass) {
 double Student::getAverageMark() {
     return 0;
 }
+
+Student::~Student() {
+    delete[] name;
+}
+
+
