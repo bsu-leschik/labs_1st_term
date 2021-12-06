@@ -31,9 +31,9 @@
     }
     void Stack::print(std::ostream &out) {
         for (int i = 0; i < size; ++i) {
-            std::cout << stackBase[i] << " ";
+            out << stackBase[i] << " ";
         }
-        std::cout << std::endl;
+        out << std::endl;
     }
 
     bool Stack::isEmpty() {
