@@ -6,7 +6,7 @@ using namespace std;
 int main(){
     Stack stack;
     cout << stack.isEmpty() << endl;
-    stack.push(5);
+    stack << 5;
     cout << stack.getSize() << " ";
     stack.push(5.6);
     cout << stack.getSize() << " ";
@@ -18,5 +18,13 @@ int main(){
     cout << stack.top() << endl;
     stack.print(cout);
     cout << stack.isEmpty() << endl;
+    cout << "Second: " << (stack)[2] << endl;
+    Stack stack1;
+    stack1 << 5 << 6 << 7 << 8 << 9;
+    double poped;
+    stack1 >> poped;
+    cout << "Poped: " << poped;
+    cout << "Logical operations: " << (stack < stack1) << " " << (stack > stack1) << " " << (stack == stack1) << endl;
+
 
 }

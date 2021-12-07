@@ -54,6 +54,48 @@ Stack::~Stack() {
     delete[] stackBase;
 }
 
+Stack& operator<<(Stack& stack, double el) {
+    stack.push(el);
+    return stack;
+}
+
+void operator>>(Stack &stack, double &el) {
+    el = stack.pop();
+}
+
+Stack &Stack::operator=(Stack &stack) {
+    this->size = stack.size;
+    delete[] this->stackBase;
+    this->stackBase = new double[stack.size];
+    for (int i = 0; i < stack.size; ++i) {
+        &stackBase[i] = &(stack.stackBase[i]);
+    }
+    return *this;
+}
+
+bool operator<(Stack &stack, Stack &stack1) {
+    return (stack.size < stack1.size);
+}
+
+bool operator>(Stack &stack, Stack &stack1) {
+    return (stack.size > stack1.size);
+}
+
+bool operator==(Stack &stack, Stack &stack1) {
+    return (stack.size == stack1.size);
+}
+
+double Stack::operator[](int i) {
+    Stack stack = *this;
+    for (int q = 0; q < i - 1; ++q) {
+        stack.pop();
+    }
+    return stack.pop();
+}
+
+
+
+
 
 
 

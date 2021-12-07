@@ -11,6 +11,23 @@ private:
 
 public:
 
+    friend Stack& operator<<(Stack& stack, double el);
+
+    friend void operator>>(Stack& stack, double& el);
+
+    Stack& operator=(Stack& stack);
+
+    friend bool operator<(Stack& stack, Stack& stack1);
+
+    friend bool operator>(Stack& stack, Stack& stack1);
+
+    friend bool operator==(Stack& stack, Stack& stack1);
+
+    double operator[](int i);
+
+
+
+
     int getSize();
     double top();
     double pop();
