@@ -17,6 +17,7 @@ public:
     void push(double value);
     void print(std::ostream& out);
     bool isEmpty();
+    void resize();
     ~Stack();
 
 };
