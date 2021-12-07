@@ -4,38 +4,112 @@
 
 #include <ostream>
 
+template<typename T>
 class Stack {
 private:
-    double* stackBase = new double[0];
+    T *stackBase = new T[0];
     int size = 0;
 
 public:
+    friend Stack<T> &operator<<(Stack<T> &stack, T el){
+        stack.push(el);
+        return stack;
+    }
 
-    friend Stack& operator<<(Stack& stack, double el);
+    friend void operator>>(Stack<T> &stack, T &el){
+        el = stack.pop();
+    }
 
-    friend void operator>>(Stack& stack, double& el);
+    Stack<T> &operator=(Stack<T> stack){
+        this->size = stack.size;
+        delete[] this->stackBase;
+        this->stackBase = new T[stack.size];
+        int temp;
+        for (int i = 0; i < stack.size; ++i) {
+            temp = stack.stackBase[i];
+            stackBase[i] = temp;
+        }
+        return *this;
+    }
 
-    Stack& operator=(Stack& stack);
+    friend bool operator<(Stack<T> &stack, Stack<T> &stack1){
+        return (stack.size < stack1.size);
+    }
 
-    friend bool operator<(Stack& stack, Stack& stack1);
+    friend bool operator>(Stack<T> &stack, Stack<T> &stack1) {
+        return (stack.size > stack1.size);
+    }
 
-    friend bool operator>(Stack& stack, Stack& stack1);
+    friend bool operator==(Stack<T> &stack, Stack<T> &stack1) {
+        return (stack.size == stack1.size);
+    }
 
-    friend bool operator==(Stack& stack, Stack& stack1);
+    T operator[](int i) {
+        Stack<T> stack = *this;
+        for (int q = 0; q < i - 1; ++q) {
+            stack.pop();
+        }
+        return stack.pop();
+    }
 
-    double operator[](int i);
 
+    int getSize() {
+        return size;
+    }
 
+    T top() {
+        return stackBase[size - 1];
+    }
 
+    T pop() {
+        --size;
+        return stackBase[size];
+    }
 
-    int getSize();
-    double top();
-    double pop();
-    void push(double value);
-    void print(std::ostream& out);
-    bool isEmpty();
-    void resize();
-    ~Stack();
+    void push(T value) {
+        if (size != 0) {
+            T temp[size];
+            for (int i = 0; i < size; ++i) {
+                temp[i] = stackBase[i];
+            }
+            delete[] stackBase;
+            stackBase = new T[++size];
+            for (int i = 0; i < size - 1; ++i) {
+                stackBase[i] = temp[i];
+            }
+        } else {
+            delete[] stackBase;
+            stackBase = new T[++size];
+        }
+        stackBase[size - 1] = value;
+    }
+
+    void print(std::ostream &out) {
+        for (int i = 0; i < size; ++i) {
+            out << stackBase[i] << " ";
+        }
+        out << std::endl;
+    }
+
+    bool isEmpty() {
+        return size;
+    }
+
+    void resize() {
+        T temp[size];
+        for (int i = 0; i < size; ++i) {
+            temp[i] = stackBase[i];
+        }
+        delete[] stackBase;
+        stackBase = new T[size];
+        for (int i = 0; i < size; ++i) {
+            stackBase[i] = temp[i];
+        }
+    }
+
+    ~Stack() {
+        delete[] stackBase;
+    }
 
 };
 

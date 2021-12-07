@@ -11,7 +11,7 @@ add_executable(4lab fourth_lab_v7/4.7.A.cpp fourth_lab_v7/4.7.B.cpp fourth_lab_v
 add_executable(5lab fifth_lab_var7/5.7.cpp)
 add_executable(6lab sixth_lab/6.cpp sixth_lab/CorrectFraction.cpp sixth_lab/CorrectFraction.h)
 add_executable(7Lab 7Lab/Student.cpp 7Lab/Student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h 7Lab/main.cpp 7Lab/functions.cpp 7Lab/functions.h)
-add_executable(8Lab 8Lab/Stack.cpp 8Lab/Stack.h 8Lab/main.cpp)
+add_executable(8Lab 8Lab/Stack.h 8Lab/main.cpp)
 
 project(Google_tests)
 
