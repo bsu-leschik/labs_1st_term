@@ -29,6 +29,7 @@ public:
             temp = stack.stackBase[i];
             stackBase[i] = temp;
         }
+        stack.stackBase = nullptr;
         return *this;
     }
 
@@ -49,7 +50,8 @@ public:
         for (int q = 0; q < i - 1; ++q) {
             stack.pop();
         }
-        return stack.pop();
+        T out = stack.pop();
+        return out;
     }
 
 
