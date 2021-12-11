@@ -4,7 +4,7 @@ using namespace std;
 
 bool Calc::isExpression(string &expression) {
     char current;
-    if (!isdigit(expression[0]) && expression[0] != '(' && expression[0] != ')'){ return false;}
+    if (!isdigit(expression[0]) && expression[0] != '(' && expression[0] != ')' && expression[0] != '-'){ return false;}
     if (!isValidChar(expression[0])) {
         return false;
     }
@@ -33,6 +33,18 @@ vector<string> Calc::toPolish(string &expression) {
     Stack<double> elements;
     vector<string> polish;
     Stack<char> operations;
+
+
+    if (expression[0] == '-'){
+        expression.erase(0);
+        expression.insert(0, "-1*");
+    }
+    for (int i = 1; i < expression.size(); ++i) {
+        if (expression[i] == '-' && expression[i - 1]){
+            expression.erase(i);
+            expression.insert(i, "-1*");
+        }
+    }
 
     string temp;
     for (int i = 0; i < expression.size(); ++i) {
@@ -81,6 +93,11 @@ vector<string> Calc::toPolish(string &expression) {
             operations.push(expression[i]);
         }
     }
+    while(!operations.isEmpty()){
+        temp = {operations.pop()};
+        polish.push_back(temp);
+    }
+    operations.resize();
     return polish;
 }
 
@@ -88,9 +105,8 @@ double Calc::calculate(std::string &expression) {
     if (!isExpression(expression)) {
         throw logic_error("Invalid expression");
     }
-    pair<Stack<double>, Stack<char>> stacks = toPolish(expression);
-    Stack<double> numbers = stacks.first;
-    Stack<char> operators = stacks.second;
+    vector<string> line= toPolish(expression);
+
 
     return 0;
 }
