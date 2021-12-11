@@ -54,8 +54,11 @@ vector<string> Calc::toPolish(string &expression) {
         } else {
             switch (expression[i]) {
                 case ')':
-                    temp = {operations.pop()};
-                    polish.push_back(temp);
+                    while(operations.top() != '(') {
+                        temp = {operations.pop()};
+                        polish.push_back(temp);
+                        operations.pop();
+                    }
                     operations.pop();
                     break;
                 case '(':
