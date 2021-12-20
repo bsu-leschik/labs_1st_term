@@ -104,14 +104,35 @@ vector<string> Calc::toPolish(string &expression) {
     return polish;
 }
 
+double Calc::calc(double first, const string& op, const string& second){
+    double a = first;
+    double b = stod(second);
+    const char* opC =  op.c_str();
+
+    switch (*opC) {
+        default: return 0;
+        case '+':
+            return a + b;
+        case '*':
+            return a * b;
+        case '-':
+            return a - b;
+        case '/':
+            return a / b;
+    }
+}
+
 double Calc::calculate(std::string &expression) {
     if (!isExpression(expression)) {
         throw logic_error("Invalid expression");
     }
-    vector<string> line= toPolish(expression);
-
-
-    return 0;
+    vector<string> line = toPolish(expression);
+    double preResult = calc(stod(line[0]), line[1], line[2]);
+    int limit = (line.size() - 1)/2;
+    for (int i = 3; i < limit;  i += 2) {
+        preResult = calc(preResult, line[i + 1], line[i]);
+    }
+    return preResult;
 }
 
 bool Calc::isValidChar(char el) {

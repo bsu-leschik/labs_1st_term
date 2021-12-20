@@ -13,6 +13,8 @@ private:
     bool isValidChar(char el);
     bool isExpression(std::string &expression);
     std::vector<std::string> toPolish(std::string &expression);
+    double calc(double first, const std::string &op, const std::string &second);
+
 
 public:
     double calculate(std::string &expression);
