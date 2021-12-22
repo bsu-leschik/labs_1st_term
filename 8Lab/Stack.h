@@ -94,7 +94,7 @@ public:
     }
 
     bool isEmpty() {
-        return size;
+        return !((bool) size);
     }
 
     void resize() {
