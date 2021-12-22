@@ -4,27 +4,37 @@ using namespace std;
 
 bool Calc::isExpression(string &expression) {
     char current;
-    if (!isdigit(expression[0]) && expression[0] != '(' && expression[0] != ')' && expression[0] != '-'){ return false;}
-    if (!isValidChar(expression[0])) {
-        return false;
-    }
-    for (int i = 1; i < expression.length(); ++i) {
+    if (!isdigit(expression[0]) && expression[0] != '(' && expression[0] != '-') { return false; }
+    for (int i = 0; i < expression.length(); ++i) {
         current = expression[i];
         if (isValidChar(current)) {
-            if ((!isdigit(current) && isdigit(expression[i - 1])) ||
-                (isdigit(current) && !isdigit(expression[i - 1]))) {
-                if (current == '(') {
-                    if (i < expression.find(')')) {
-                        continue;
-                    } else {
-                        return false;
-                    }
+            if (current == '(') {
+                if (expression.find(')', i) == -1) {
+                    return false;
                 } else {
                     continue;
                 }
             }
+            if (expression[i] == '-') {
+                if (i > 0) {
+                    if (!isdigit(expression[i - 1]) && expression[i - 1] != '-' && expression[i - 1] != '(' &&
+                        expression[i - 1] != ')') {
+                        return false;
+                    }
+                }
+                if (expression[i + 1] != '-' && !isdigit(expression[i + 1]) && expression[i + 1] != '(') {
+                    return false;
+                }
+                continue;
+            }
+            if (!isdigit(expression[i]) && !isdigit(expression[i + 1]) && expression[i + 1] != '\0' &&
+                expression[i + 1] != '(' && expression[i] != ')') {
+                return false;
+            } else if (!isdigit(expression[i])) {
+                continue;
+            }
+            getNumber(expression, i);
         }
-        return false;
     }
     return true;
 }
@@ -35,14 +45,14 @@ vector<string> Calc::toPolish(string &expression) {
     Stack<char> operations;
 
 
-    if (expression[0] == '-'){
-        expression.erase(0);
-        expression.insert(0, "-1*");
+    if (expression[0] == '-' && (isdigit(expression[1]) || expression[1] == '(')) {
+        expression.erase(0, 1);
+        expression.insert(0, "~");
     }
     for (int i = 1; i < expression.size(); ++i) {
-        if (expression[i] == '-' && expression[i - 1]){
-            expression.erase(i);
-            expression.insert(i, "-1*");
+        if (expression[i] == '-' && !isdigit(expression[i - 1]) && expression[i - 1] != ')') {
+            expression.erase(i, 1);
+            expression.insert(i, "~");
         }
     }
 
@@ -53,11 +63,13 @@ vector<string> Calc::toPolish(string &expression) {
             continue;
         } else {
             switch (expression[i]) {
+                case '~':
+                    operations.push('~');
+                    break;
                 case ')':
-                    while(operations.top() != '(') {
+                    while (operations.top() != '(') {
                         temp = {operations.pop()};
                         polish.push_back(temp);
-                        operations.pop();
                     }
                     operations.pop();
                     break;
@@ -65,38 +77,39 @@ vector<string> Calc::toPolish(string &expression) {
                     operations.push('(');
                     break;
                 case '*':
-                    if (operations.top() == '/'){
+                    while (operations.top() == '~' || operations.top() == '/') {
                         temp = {operations.pop()};
                         polish.push_back(temp);
                     }
                     operations.push('*');
                     break;
                 case '/':
-                    if (operations.top() == '*'){
+                    while (operations.top() == '~' || operations.top() == '*') {
                         temp = {operations.pop()};
                         polish.push_back(temp);
                     }
                     operations.push('/');
                     break;
                 case '+':
-                    if (operations.top() == '*' || operations.top() == '/' || operations.top() == '-'){
+                    while (operations.top() == '*' || operations.top() == '/' || operations.top() == '-' ||
+                           operations.top() == '~' || operations.top() == '+') {
                         temp = {operations.pop()};
                         polish.push_back(temp);
                     }
                     operations.push('+');
                     break;
                 case '-':
-                    if (operations.top() == '*' || operations.top() == '/' || operations.top() == '+'){
+                    while (operations.top() == '*' || operations.top() == '/' || operations.top() == '+' ||
+                           operations.top() == '~' || operations.top() == '-') {
                         temp = {operations.pop()};
                         polish.push_back(temp);
                     }
                     operations.push('-');
                     break;
             }
-            operations.push(expression[i]);
         }
     }
-    while(!operations.isEmpty()){
+    while (!operations.isEmpty()) {
         temp = {operations.pop()};
         polish.push_back(temp);
     }
@@ -104,22 +117,13 @@ vector<string> Calc::toPolish(string &expression) {
     return polish;
 }
 
-double Calc::calc(double first, const string& op, const string& second){
-    double a = first;
-    double b = stod(second);
-    const char* opC =  op.c_str();
-
-    switch (*opC) {
-        default: return 0;
-        case '+':
-            return a + b;
-        case '*':
-            return a * b;
-        case '-':
-            return a - b;
-        case '/':
-            return a / b;
+bool Calc::isNumber(string line) {
+    for (char c: line) {
+        if (!isdigit(c) && c != '.') {
+            return false;
+        }
     }
+    return true;
 }
 
 double Calc::calculate(std::string &expression) {
@@ -127,12 +131,36 @@ double Calc::calculate(std::string &expression) {
         throw logic_error("Invalid expression");
     }
     vector<string> line = toPolish(expression);
-    double preResult = calc(stod(line[0]), line[1], line[2]);
-    int limit = (line.size() - 1)/2;
-    for (int i = 3; i < limit;  i += 2) {
-        preResult = calc(preResult, line[i + 1], line[i]);
+    Stack<double> stack;
+    for (string s: line) {
+        if (isNumber(s)) {
+            stack.push(stod(s));
+        } else {
+            const char *opC = s.c_str();
+
+            double a;
+            switch (*opC) {
+                case '~':
+                    stack.push(-stack.pop());
+                    break;
+                case '+':
+                    stack.push(stack.pop() + stack.pop());
+                    break;
+                case '*':
+                    stack.push(stack.pop() * stack.pop());
+                    break;
+                case '-':
+                    a = stack.pop();
+                    stack.push((double) (stack.pop() - a));
+                    break;
+                case '/':
+                    a = stack.pop();
+                    stack.push((double) (stack.pop() / a));
+                    break;
+            }
+        }
     }
-    return preResult;
+    return stack.pop();
 }
 
 bool Calc::isValidChar(char el) {
@@ -143,41 +171,20 @@ bool Calc::isValidChar(char el) {
     return false;
 }
 
-double Calc::charToDouble(const char *charNum) {
-    int i = 0;
-    int number = 0;
-    while (charNum[i] != '.' || charNum[i] != '\0') {
-        number += charNum[i] - 48;
-        ++i;
-    }
-    if (charNum[i] == '.') {
-        int j = 10;
-        while (charNum[i] != '\0') {
-            number += (charNum[i] - 48) % j;
-            ++i;
-            j += 10;
-        }
-    }
-    return number;
-}
-
-string Calc::getNumber(const string &expression, int& start) {
-    int j = 0;
+string Calc::getNumber(const string &expression, int &start) {
     string number;
-    while (isdigit(expression[start]) || expression[start] != '\0') {
-        number[j] = expression[start];
-        ++j;
+    while (isdigit(expression[start])) {
+        number.push_back(expression[start]);
         ++start;
     }
-    if (expression[start] == '.') {
-        number[j] = '.';
+    if (expression[start] == '.' || expression[start] == ',') {
+        number.push_back('.');
         ++start;
-        ++j;
-        while (isdigit(expression[start]) || expression[start] != '\0') {
-            number[j] = expression[start];
+        while (isdigit(expression[start])) {
+            number.push_back(expression[start]);
             ++start;
-            ++j;
         }
     }
+    --start;
     return number;
 }
