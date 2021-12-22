@@ -11,7 +11,7 @@ add_executable(4lab fourth_lab_v7/4.7.A.cpp fourth_lab_v7/4.7.B.cpp fourth_lab_v
 add_executable(5lab fifth_lab_var7/5.7.cpp)
 add_executable(6lab sixth_lab/6.cpp sixth_lab/CorrectFraction.cpp sixth_lab/CorrectFraction.h)
 add_executable(7Lab 7Lab/Student.cpp 7Lab/Student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h 7Lab/main.cpp 7Lab/functions.cpp 7Lab/functions.h)
-add_executable(8Lab 8Lab/Stack.h 8Lab/main.cpp)
+add_executable(8Lab 8Lab/Stack.h 8Lab/main.cpp 8Lab/Calc.cpp 8Lab/Calc.h 8Lab/Tests.cpp)
 
 project(Google_tests)
 
@@ -20,8 +20,12 @@ include_directories(${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
 
 #add_executable(Google_Test_4lab_run fourth_lab_v7/4.7.A.h)
 
+add_executable(Google_Tests_8Lab_run 8Lab/Tests.cpp 8Lab/Calc.cpp 8Lab/Calc.h 8Lab/Stack.h)
+
 add_executable(Google_Tests_7Lab_run 7Lab/Student.cpp 7Lab/Student.h 7Lab/StudentAfter1Session.cpp 7Lab/StudentAfter1Session.h 7Lab/StudentAfter2Session.cpp 7Lab/StudentAfter2Session.h 7Lab/functions.cpp 7Lab/functions.h 7Lab/tests.cpp)
 
 add_executable(Google_Tests_six_lab_run sixth_lab/tests.cpp sixth_lab/CorrectFraction.cpp sixth_lab/CorrectFraction.h sixth_lab/tests.h)
 
 target_link_libraries(Google_Tests_six_lab_run gtest gtest_main)
+target_link_libraries(Google_Tests_7Lab_run gtest gtest_main)
+target_link_libraries(Google_Tests_8Lab_run gtest gtest_main)
