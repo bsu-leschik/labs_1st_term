@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "Calc.h"
 
+Stack<int> stack;
 Calc* ex = new Calc();
 std::string c;
 
@@ -112,3 +113,35 @@ TEST(First, Minus){
     c = "-(57*45-25)*5";
     ASSERT_EQ(ex->calculate(c), -12700);
 }
+
+TEST(Stack, Push){
+    stack << 5;
+    stack << 20;
+    ASSERT_EQ(20, stack.top());
+}
+
+TEST(Stack, Pop){
+    int i = 0;
+    stack >> i;
+    ASSERT_EQ(stack.top(), 5);
+}
+
+TEST(Stack, ElementByNum){
+    stack.push(5);
+    stack.push(6);
+    stack.push(7);
+    stack.push(8);
+    ASSERT_EQ(stack[1], 5);
+}
+
+TEST(Stack, Asignement){
+    Stack<int> temp;
+    temp << 6543;
+    temp = stack;
+    ASSERT_EQ(stack.getSize(), temp.getSize());
+    for (int i = 0; i < stack.getSize(); ++i) {
+        ASSERT_EQ(temp[i], stack[i]);
+    }
+}
+
+

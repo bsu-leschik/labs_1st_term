@@ -132,7 +132,7 @@ double Calc::calculate(std::string &expression) {
     }
     vector<string> line = toPolish(expression);
     Stack<double> stack;
-    for (string s: line) {
+    for (string s : line) {
         if (isNumber(s)) {
             stack.push(stod(s));
         } else {

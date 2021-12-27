@@ -46,12 +46,7 @@ public:
     }
 
     T operator[](int i) {
-        Stack<T> stack = *this;
-        for (int q = 0; q < i - 1; ++q) {
-            stack.pop();
-        }
-        T out = stack.pop();
-        return out;
+        return stackBase[i];
     }
 
 
