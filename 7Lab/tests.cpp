@@ -25,15 +25,17 @@ TEST(Student, getStudentNum){
 }
 
 TEST(Student, getCurs){
-    ASSERT_EQ(student1.getCurs(), 225401);
+    ASSERT_EQ(student1.getCurs(), 1);
 }
 
 TEST(Student, getGroup){
-    ASSERT_EQ(student1.getGroup(), 225401);
+    ASSERT_EQ(student1.getGroup(), 4);
 }
 
 TEST(StudentAfter1Session, getMarks){
-    ASSERT_EQ(studentAfter1Session.getMarks(), marks1);
+    for (int i = 0; i < 4; ++i) {
+        ASSERT_EQ(studentAfter1Session.getMarks()[i], marks1[i]);
+    }
 }
 
 TEST(StudentAfter1Session, getAverageMark){
@@ -41,11 +43,13 @@ TEST(StudentAfter1Session, getAverageMark){
 }
 
 TEST(StudentAfter2Session, getMarks){
-    ASSERT_EQ(studentAfter2Session.getMarks(), marks2);
+    for (int i = 0; i < 5; ++i) {
+        ASSERT_EQ(studentAfter2Session.get2SessionMarks()[i], marks2[i]);
+    }
 }
 
 TEST(StudentAfter2Session, getAverageMark){
-    ASSERT_EQ(studentAfter2Session.getAverageMark(), 7);
+    ASSERT_EQ(studentAfter2Session.getAverageMark(), 5);
 }
 
 TEST(Functions, groupAvgAfter1Session){
