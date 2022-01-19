@@ -44,10 +44,9 @@ string Student::createUUID() {
 
 
 
-Student::Student(int studentNum, string &name, int curs, int group) {
+Student::Student(int studentNum_, string &name, int curs, int group) : studentNum(studentNum_){
     this->name = new char[name.size()];
     UUID = createUUID();
-    this->studentNum = studentNum;
     for (int i = 0; i < name.size(); ++i) {
         this->name[i] = name.at(i);
     }
@@ -55,9 +54,8 @@ Student::Student(int studentNum, string &name, int curs, int group) {
     this->group = group;
 }
 
-Student::Student(Student *studentClass) {
-    this->UUID = studentClass->UUID;
-    this->studentNum = studentClass->studentNum;
+Student::Student(Student *studentClass) : studentNum(studentClass->studentNum){
+    this->UUID = getUUID();
     this->name = studentClass->name;
     this->curs = studentClass->curs;
     this->group = studentClass->group;

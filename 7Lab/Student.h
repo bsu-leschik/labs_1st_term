@@ -13,7 +13,7 @@ class Student {
 private:
 
     string UUID;
-    int studentNum;
+    const int studentNum;
     char *name;
     int curs;
     int group;
