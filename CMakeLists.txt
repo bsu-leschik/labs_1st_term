@@ -5,7 +5,7 @@ project(General_compilation)
 set(CMAKE_CXX_STANDARD 14)
 
 add_executable(1lab first_lab_var7/lab_1.7.cpp)
-add_executable(2lab second_lab_var7/lab_2.7.cpp)
+add_executable(2lab 2ndLab/lab_2.7.cpp)
 add_executable(3lab third_lab_var7/lab3.7.cpp)
 add_executable(4lab fourth_lab_v7/4.7.A.cpp fourth_lab_v7/4.7.B.cpp fourth_lab_v7/4.7.A.h fourth_lab_v7/4.7.B.h fourth_lab_v7/tests4.7.h)
 add_executable(5lab fifth_lab_var7/5.7.cpp)

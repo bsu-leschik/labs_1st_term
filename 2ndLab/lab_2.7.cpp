@@ -6,10 +6,22 @@
 void sort(double *arr, const int *size);
 void max_freq(double *arr, const int *size);
 int exists(double element, double* arr, const int* size);
-
+double* sorting(double* mas, int length);
 
 
 using namespace std;
+
+bool isIn(double element, const double* mas, int length){
+    for (int i = 0; i < length; ++i) {
+        if (mas[i] == element){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
 
 int main() {
     //Instead of taking a lot of memory space, which might not even be used,
@@ -64,6 +76,11 @@ int main() {
     for (int i = 0; i < MAX; ++i) {
         cout << *(arr + i) << " ";
     }
+
+
+    sorting(arr, max);
+
+
     cout << endl;
     //finding max value
     double cur;
@@ -97,83 +114,58 @@ int main() {
     }
     cout << "Sum of elements, which are between two elements that are greater then zero " << fixed << setprecision(5)
          << sum << endl;
-    //Arrange the elements in descending order of their frequency of occurrence
-
-    int unique_count = 0;
-    sort(arr, &MAX);
-    for (int i = 0; i < MAX; ++i) {
-        if (i == 0){
-            unique_count++;
-            continue;
-        }
-        if (arr[i] != arr[i-1]){
-            unique_count++;
-        }
-    }
-    cout << unique_count << endl;
-    for (int i = 0; i < unique_count; ++i) {
-        max_freq(arr, &MAX);
-    }
+    delete[] arr;
 }
 
-static int zeros;
-static bool zero_first = true;
-void max_freq(double* arr, const int* size) {
+double* sorting(double* mas, int length) {
 
-    int nulls = 0, amount = 0, max_amount = 0, i_max = 0;
-    for (int i = 0; i < *size; ++i) {
-        if (arr[i] == 0){
-            ++nulls;
-        }
-    }
-    if(zero_first){
-        zeros = nulls;
-        zero_first = false;
-    }
-    bool first = true;
-    for (int i = 0; i < *size; ++i) {
-        if (first && arr[i] != 0){
-            first = false;
-            amount++;
+    //statistics
+    int last = 0;
+    double *masInts = new double[length];
+    double *masStat = new double[length];
+    for (int i = 0; i < length; ++i) {
+        double cur = mas[i];
+        if (!isIn(cur, masInts, length)){
+            masInts[last] = cur;
+            last++;
+        } else {
             continue;
         }
-        if (arr[i] == 0){
-            if (!first){
-                if (amount > max_amount){
-                    max_amount = amount;
-                    i_max = i - 1;
-                    amount = 0;
-                } else {
-                    amount = 0;
-                }
-            }
-            continue;
-        }
-        while(arr[i] == arr[i - 1])  {
-            amount ++;
-            i ++;
-        }
-        if (arr[i] != arr[i - 1] || arr[i] != 0){
-            if (amount > max_amount){
-                max_amount = amount;
-                i_max = i - 1;
-                amount = 0;
-            } else {
-                amount = 0;
+        for (int j = i; j < length; ++j) {
+            if (mas[j] == cur) {
+                masStat[last - 1]++;
             }
         }
     }
-    double temp = arr[i_max];
-    if (zeros > max_amount) {
-        cout << 0 << " ";
-    } else {
-        int temp_i = exists(temp, arr, size);
-        cout << temp << " ";
-        while (temp_i != -1) {
-            arr[temp_i] = 0;
-            temp_i = exists(temp, arr, size);
+
+    //sorting
+    for (int i = 0; i < last; ++i) {
+        for (int j = 1; j < last; ++j) {
+            if (masStat[i + j - 1] < masStat[i + j]){
+                swap(masStat[i + j - 1], masStat[i + j]);
+                swap(masInts[i + j - 1], masInts[i + j]);
+            }
         }
     }
+
+    //sorting main array
+    int num = 0;
+    for (int i = 0; i < last; ++i) {
+        double cur = masInts[i];
+        for (int j = 0; j < masStat[i]; ++j) {
+            mas[num] = cur;
+            num++;
+        }
+    }
+
+    cout << endl;
+    for (int i = 0; i < length; ++i) {
+        cout << mas[i] << " ";
+    }
+
+    delete[] masInts;
+    delete[] masStat;
+    return mas;
 }
 
 void sort(double *arr, const int* size) {
