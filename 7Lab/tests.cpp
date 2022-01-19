@@ -71,3 +71,26 @@ TEST(Functions, groupAvgAfter2Session){
     students.push_back(&studentAfter2Session1);
     ASSERT_EQ(groupAvgAfter2Session(students, 4), 5);
 }
+
+TEST(UUID, ifEqual){
+    ASSERT_NE( student1.getUUID(), student2.getUUID());
+}
+
+TEST(Setters, setCurs){
+    student1.setCurs(2);
+    ASSERT_EQ(2, student1.getCurs());
+}
+
+TEST(Setters, setName){
+    char* name = new char[5];
+    for (int i = 0; i < 5; ++i) {
+        name[i] = 'A';
+    }
+    student1.setName(name);
+    ASSERT_EQ(name, student1.getName());
+}
+
+TEST(Setters, setGroup){
+    student1.setGroup(9);
+    ASSERT_EQ(9, student1.getGroup());
+}
