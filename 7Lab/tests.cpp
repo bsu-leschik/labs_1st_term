@@ -5,12 +5,17 @@
 
 string name = "aboba";
 int marks1[4] = {1, 3, 5, 7};
+int marks11[4] = {1, 4, 5, 7};
 int marks2[5] = {2, 4, 6, 8, 10};
+int marks21[5] = {2, 4, 9, 8, 10};
 
 Student student1(225401, name, 1, 4);
 Student student2(225402, name, 1, 4);
 StudentAfter1Session studentAfter1Session(student1.getStudentNum(), name, student1.getCurs(), student1.getGroup(), marks1);
+StudentAfter1Session studentAfter1Session1(student1.getStudentNum(), name, student1.getCurs(), 5, marks11);
 StudentAfter2Session studentAfter2Session(student1.getStudentNum(), name, student1.getCurs(), student1.getGroup(), marks1, marks2);
+StudentAfter2Session studentAfter2Session1(student1.getStudentNum(), name, student1.getCurs(), 5, marks11, marks21);
+
 
 TEST(Student, getName){
     ASSERT_EQ(student1.getName(), name);
@@ -53,18 +58,16 @@ TEST(StudentAfter2Session, getAverageMark){
 }
 
 TEST(Functions, groupAvgAfter1Session){
-    vector<StudentAfter1Session> students;
+    vector<StudentAfter1Session*> students;
     students.push_back(&studentAfter1Session);
-    students.push_back(&studentAfter2Session);
+    students.push_back(&studentAfter1Session1);
 
     ASSERT_EQ(groupAvgAfter1Session(students, 4), 4);
 }
 
 TEST(Functions, groupAvgAfter2Session){
-    vector<StudentAfter2Session> students;
-    int marks3[5] = {10, 7, 9, 0, 8};
-    StudentAfter2Session studentA2(25, name, 5, 1, marks1, marks3);
+    vector<StudentAfter2Session*> students;
     students.push_back(&studentAfter2Session);
-
-    ASSERT_EQ(groupAvgAfter2Session(students, 4), 7);
+    students.push_back(&studentAfter2Session1);
+    ASSERT_EQ(groupAvgAfter2Session(students, 4), 5);
 }

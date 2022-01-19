@@ -1,27 +1,27 @@
 #include "functions.h"
 
-double groupAvgAfter1Session(const vector<StudentAfter1Session>& students, int group){
+double groupAvgAfter1Session(const vector<StudentAfter1Session*>& students, int group){
     double avg;
     int i = 0;
-    for(StudentAfter1Session student : students) {
-        if (student.getGroup() == group) {
-            avg += student.getAverageMark();
+    for(StudentAfter1Session* student : students) {
+        if (student->getGroup() == group) {
+            avg += student->getAverageMark();
             ++i;
         }
     }
     return (double) avg / i;
 }
 
-double groupAvgAfter2Session(const vector<StudentAfter2Session>& students, int group){
-    double avg;
+double groupAvgAfter2Session(const vector<StudentAfter2Session*>& students, int group){
+    double avg = 0;
     int i = 0;
-    for(StudentAfter2Session student : students) {
-        if (student.getGroup() == group) {
-            avg += student.getAverageMark();
+    for(StudentAfter2Session* student : students) {
+        if (student->getGroup() == group) {
+            avg += student->getAverageMark();
             ++i;
         }
     }
-    return avg;
+    return (double) avg / i;
 }
 
 double MasAvg(){

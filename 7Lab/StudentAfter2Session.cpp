@@ -29,8 +29,8 @@ double StudentAfter2Session::getAverageMark() {
     for (int mark: this->marks2Session) {
         sum += mark;
     }
-    StudentAfter1Session student(this);
-    sum = (double) (sum / 5 + student.getAverageMark()) / 2;
+    StudentAfter1Session* student = new StudentAfter1Session(this);
+    sum = (double) (sum / 5 + student->getAverageMark()) / 2;
     return sum;
 }
 
